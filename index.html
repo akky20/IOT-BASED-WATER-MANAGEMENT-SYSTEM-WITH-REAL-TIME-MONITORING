@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js'></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-nature-background_23-2148941599.jpg?w=2000");
+            justify-content: center;
+            align-items: center;
+            height: max-content;
+        }
+
+        .decor1 {
+            background-color: rgb(13, 85, 5);
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 140px;
+            height: 140px;
+            border-top-right-radius: 180px;
+            border-right: rgb(10, 32, 1) solid 20px;
+
+        }
+
+        .decor2 {
+            background-color: rgb(13, 85, 5);
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            width: 160px;
+            height: 160px;
+            border-bottom-left-radius: 180px;
+            border-left: rgb(10, 32, 1) solid 20px;
+        }
+
+        .full {
+            margin: 180px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .grid-container {
+            margin: 0px;
+            background: white;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .box {
+            padding: 0px 0px;
+            margin: 10px 10px;
+
+            height: 230px;
+            width: 230px;
+            border-radius: 5px;
+        }
+
+        #item1 {
+            background-color: rgba(255, 0, 0, 0.85);
+        }
+
+        #item2 {
+            background-color: rgba(255, 0, 0, 0.85);
+        }
+
+        #item3 {
+            background-color: rgba(255, 0, 0, 0.85);
+        }
+
+        img {
+            opacity: 0.5;
+
+        }
+
+        .head {
+    
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-shadow: 3px 3px rgb(253, 253, 253);
+            margin: auto;
+            width: 500px;
+            color: rgb(3, 1, 65);
+            font-size: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="full">
+        <div class="head">
+
+            <!-- <h1>IOT Water Management System</h1> -->
+        </div>
+        <div class="grid-container">
+            <div class="box" id="item1"></div>
+            <div class="box" id="item2"></div>
+            <div class="box" id="item3"></div>
+        </div>
+
+    </div>
+
+    <div class="decor1">
+    </div>
+
+    <div class="decor2">
+    </div>
+
+    <script>
+
+        var socket = io();
+
+        socket.on('data', function (data) {
+
+            console.log(data);
+
+            // Parse the incoming data and extract the sensor values
+            const sensorValues = data.split(',');
+            const sensorValue1 = parseInt(sensorValues[0]);
+            const sensorValue2 = parseInt(sensorValues[1]);
+            const sensorValue3 = parseInt(sensorValues[2]);
+
+            console.log(sensorValue1);
+            console.log(sensorValue2);
+            console.log(sensorValue3);
+
+            if (sensorValue1<70){
+                document.getElementById('item1').style.backgroundColor = "green";  
+            }
+            else{
+                document.getElementById('item1').style.backgroundColor = "red";  
+                
+            }
+            
+            if (sensorValue2<75){
+                document.getElementById('item2').style.backgroundColor = "green";  
+            }
+            else{
+                document.getElementById('item2').style.backgroundColor = "red";  
+                
+            }
+            if (sensorValue3<50){
+                document.getElementById('item3').style.backgroundColor = "green";  
+            }
+            else{
+                document.getElementById('item3').style.backgroundColor = "red";  
+                
+            }
+            // document.getElementById('item1').style.opacity = sensorValue1 / 100;
+            // document.getElementById('item2').style.opacity = sensorValue2 / 100;
+            // document.getElementById('item3').style.opacity = sensorValue3 / 100;
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>
